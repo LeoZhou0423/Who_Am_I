@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我是谁 · doodle-self</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/roughjs@4.6.6/bundled/rough.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- ① 封面页 -->
+    <section id="screen-landing" class="screen active">
+      <div class="paper-card landing-card sketch-border">
+        <div class="doodle-illustration" aria-hidden="true">
+          <svg viewBox="0 0 200 160" width="160" height="128">
+            <circle cx="100" cy="80" r="55" fill="none" stroke="var(--ink-primary)" stroke-width="2.5" stroke-dasharray="6 4"/>
+            <circle cx="88" cy="72" r="4" fill="var(--ink-primary)"/>
+            <circle cx="112" cy="72" r="4" fill="var(--ink-primary)"/>
+            <path d="M85 95 Q100 108 115 95" fill="none" stroke="var(--ink-primary)" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="156" y="40" font-family="Caveat" font-size="32" fill="var(--ink-accent)">?</text>
+            <text x="36" y="130" font-family="Caveat" font-size="20" fill="var(--ink-blue)">me</text>
+          </svg>
+        </div>
+        <h1 class="title-hand">我是谁</h1>
+        <p class="subtitle">4 个维度的自我探索 · 涂鸦手绘版</p>
+        <p class="hint">纯本地运行，数据只保存在你的浏览器里。</p>
+        <button class="btn btn-primary" data-action="start">开始探索</button>
+      </div>
+    </section>
+
+    <!-- ② 量表选择页 -->
+    <section id="screen-menu" class="screen">
+      <div class="container">
+        <h2 class="section-title">选一个，或全部测一遍</h2>
+        <div id="scale-menu" class="scale-grid"></div>
+        <div class="menu-actions">
+          <button class="btn btn-secondary" data-action="select-all">全部测一遍</button>
+          <button class="btn btn-primary" data-action="begin-quiz" disabled>开始答题</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ③ 答题页 -->
+    <section id="screen-quiz" class="screen">
+      <div class="container quiz-container">
+        <div class="quiz-header">
+          <span id="quiz-scale-name" class="quiz-scale-name"></span>
+          <div class="progress-wrap">
+            <canvas id="progress-canvas" width="320" height="16"></canvas>
+          </div>
+          <span id="quiz-progress-text" class="quiz-progress-text">1 / 12</span>
+        </div>
+        <div class="question-card sketch-border">
+          <h3 id="question-text" class="question-text"></h3>
+          <div id="options" class="options"></div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-text" data-action="prev">← 上一题</button>
+          <button class="btn btn-text" data-action="quit">退出</button>
+        </div>
+        <p class="keyboard-hint">按键盘 1-5 快速选择</p>
+      </div>
+    </section>
+
+    <!-- ④ 结果页 -->
+    <section id="screen-result" class="screen">
+      <div class="container result-container">
+        <h2 class="section-title">你的结果</h2>
+        <div id="result-panels" class="result-panels"></div>
+        <div class="result-actions">
+          <button class="btn btn-primary" data-action="save-image">保存为图片</button>
+          <button class="btn btn-secondary" data-action="writing">书写练习</button>
+          <button class="btn btn-text" data-action="restart">重新测试</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑤ 书写练习页 -->
+    <section id="screen-writing" class="screen">
+      <div class="container writing-container">
+        <h2 class="section-title">书写练习：我是 ____</h2>
+        <p class="writing-intro">写下 20 个「我是……」。不用完美，像随手记笔记。</p>
+        <div id="i-am-list" class="i-am-list"></div>
+        <div class="writing-actions">
+          <button class="btn btn-primary" data-action="analyze">实时词云</button>
+          <button class="btn btn-secondary" data-action="back-result">返回结果</button>
+          <button class="btn btn-text" data-action="restart">重新测试</button>
+        </div>
+        <div id="wordcloud-panel" class="wordcloud-panel sketch-border hidden">
+          <h3>词频快照</h3>
+          <div id="wordcloud-content" class="wordcloud-content"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="data/scales.js"></script>
+  <script src="rough-helper.js"></script>
+  <script src="charts.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
